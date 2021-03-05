@@ -16,6 +16,17 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/check', (req, res, next)=>{
+  
+  console.log("We are in check");
+  next();
+});
+
+app.get('/check', (req, res)=>{
+
+  res.send("Responding");
+});
+
 app.use('/photos', express.static('photos'));
 
 app.get("/hotels", function (request, response) {
