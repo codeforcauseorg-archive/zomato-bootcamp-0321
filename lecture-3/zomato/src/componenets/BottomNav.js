@@ -2,15 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import {AccountBoxOutlined } from '@material-ui/icons';
 import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles({
-  root: {
-    width: 500,
-  },
+  root: {},
 });
 
 export default function BottomNav() {
@@ -36,9 +32,11 @@ export default function BottomNav() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Order" value="/order" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Gold" value="/gold" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Profile" value="/profile" icon={<LocationOnIcon />} />
+      <BottomNavigationAction label="Order" value="/order" icon={<AccountBoxOutlined />} />
+      <BottomNavigationAction label="Order" value="/out" icon={<AccountBoxOutlined />} />
+      <BottomNavigationAction label="Gold" value="/gold" icon={<AccountBoxOutlined />} />
+      <BottomNavigationAction label="Order" value="/search" icon={<AccountBoxOutlined />} />
+      <BottomNavigationAction label="Profile" value="/profile" icon={<AccountBoxOutlined />} />
     </BottomNavigation>
   );
 }

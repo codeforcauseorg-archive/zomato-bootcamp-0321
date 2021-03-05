@@ -1,6 +1,6 @@
 function GoldPage() {
     return (
-      <h1>Gold Page</h1>
+      <h1>Golden Page</h1>
     );
   }
   

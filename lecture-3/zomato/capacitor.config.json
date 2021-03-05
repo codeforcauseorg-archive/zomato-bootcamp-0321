@@ -1,0 +1,13 @@
+{
+  "appId": "org.codeforcause.zclone",
+  "appName": "zomato",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
