@@ -4,13 +4,15 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import BaseLayout from './layouts/BaseLayout';
+import { useState } from 'react';
 
 function App() {
+
+  let [user, setUser] = useState({});
+
   return (
     <Router>
-
-      <BaseLayout />
-      
+      {user ? <BaseLayout /> : <Auth setUser={setUser}/>}
      </Router>
   );
 }

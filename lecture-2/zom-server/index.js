@@ -1,7 +1,18 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const csv = require("csvtojson");
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./zomato-91cd4-firebase-adminsdk-kbg0f-2733174e18.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const bearerToken = require("express-bearer-token");
 
 // function middle(req, res, next){
 //     console.log("This is a middleware");
@@ -9,34 +20,39 @@ const csv = require("csvtojson");
 // }
 
 // app.use(middle);
+app.use(cors());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+app.use(bearerToken());
+
+app.use("/hotels", (req, res, next) => {
+  if (req.token) {
+    admin
+      .auth()
+      .verifyIdToken(req.token)
+      .then((user) => {
+        req.user = user;
+        next();
+      })
+      .catch((error) => {
+        res.send(401);
+      });
+  } else {
+    res.send(401);
+  }
 });
 
-app.use('/check', (req, res, next)=>{
-  
-  console.log("We are in check");
-  next();
-});
-
-app.get('/check', (req, res)=>{
-
+app.get("/check", (req, res) => {
   res.send("Responding");
 });
 
-app.use('/photos', express.static('photos'));
+app.use("/photos", express.static("photos"));
 
 app.get("/hotels", function (request, response) {
-
   csv()
     .fromFile("./zomato_with_images.csv")
     .then((json) => {
-      response.send(json.slice(0, 10));
+      response.send(json.slice(0, 40));
     });
-
 });
 
 app.listen(5000);
